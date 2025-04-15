@@ -8,14 +8,12 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   var _perguntaSelecionada = 0;
   
-  void responder(){
+  void _responder(){
 
     setState(() {
     if (_perguntaSelecionada < 6) {
       _perguntaSelecionada++;
-      //print("Pergunta: $perguntaSelecionada");
     } else {
-      //print("Fim das perguntas!");
       _perguntaSelecionada = 0;
       }
     });
@@ -26,14 +24,32 @@ class _PerguntaAppState extends State<PerguntaApp> {
   @override
   Widget build(BuildContext context) {
 
-    final List<String> perguntas = [
-      "Qual é a sua cor favorita?",
-      "Qual é o seu animal favorito?",
-      "Qual é o seu esporte favorito?",
-      "Qual é o seu filme favorito?",
-      "Qual é a sua comida favorita?",
-      "Qual é o seu livro favorito?",
-      "Qual é a sua música favorita?",
+    final List<Map<String, Object>> perguntas = [
+      {
+        'texto': 'Qual é a sua cor favorita?',
+        'respostas' : ['Preto', 'Azul', 'Cinza' , 'Rosa'],
+      },
+
+      {
+        'texto': 'Qual é o seu animal favorito?',
+        'respostas' : ['Cachorro', 'Gato', 'Calopsita' , 'Galinha'],
+      }, 
+      {
+        'texto': 'Qual é o seu esporte favorito?',
+        'respostas' : ['Futebol', 'Vôlei', 'Basquete' , 'Natação'],
+      }, 
+      {
+        'texto': 'Qual é o seu filme favorito?',
+        'respostas' : ['Interstelar', 'Marley e eu', 'Ainda estou aqui' , 'Impossível'],
+      }, 
+      {
+        'texto': 'Qual é a sua comida favorita?',
+        'respostas' : ['Estrogonofe', 'Pão de queijo','Beirute' , 'Pizza'],
+      }, 
+      {
+        'texto': 'Qual é o seu livro favorito?',
+        'respostas' : ['Um café com Sêneca', 'O despertar da senhorita Prim', 'Feliz ano velho' , 'Mochileiro das Galáxias'],
+      }
     ];
            
 
@@ -47,17 +63,17 @@ class _PerguntaAppState extends State<PerguntaApp> {
               fontFamily: 'Sans-serif'
             )
           ),
-          backgroundColor: const Color.fromARGB(255, 84, 84, 187),
+          backgroundColor: const Color(0xFF5454BB),
           centerTitle: true,
           
         ),
         body: Column(
-          children: [ 
-            Questao(perguntas[_perguntaSelecionada]),
+          children: <Widget>[ 
+            Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
           
-            Resposta("Resposta 1"),
-            Resposta("Resposta 2"),
-            Resposta("Resposta 3"),
+            Resposta("Resposta 1", _responder),
+            Resposta("Resposta 2", _responder),
+            Resposta("Resposta 3", _responder),
         
         ]),
       )
