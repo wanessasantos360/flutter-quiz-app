@@ -51,6 +51,16 @@ class _PerguntaAppState extends State<PerguntaApp> {
         'respostas' : ['Um café com Sêneca', 'O despertar da senhorita Prim', 'Feliz ano velho' , 'Mochileiro das Galáxias'],
       }
     ];
+
+    List<String> respostas = perguntas[_perguntaSelecionada].cast()['respostas'];
+    List<Widget> widgetsResposta = respostas
+    .map((t) => Resposta(t, _responder))
+    .toList();
+
+
+    // for (String textoResp in respostas) {
+    //   widgetsResposta.add(Resposta(textoResp, _responder));
+    // }
            
 
     return MaterialApp(
@@ -71,9 +81,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
           children: <Widget>[ 
             Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
           
-            Resposta("Resposta 1", _responder),
-            Resposta("Resposta 2", _responder),
-            Resposta("Resposta 3", _responder),
+            ...respostas.map((t) => Resposta(t, _responder)).toList(),
         
         ]),
       )
