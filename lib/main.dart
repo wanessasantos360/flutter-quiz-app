@@ -7,24 +7,8 @@ main() => runApp(PerguntaApp());
 class _PerguntaAppState extends State<PerguntaApp> {
 
   var _perguntaSelecionada = 0;
-  
-  void _responder(){
 
-    setState(() {
-    if (_perguntaSelecionada < 6) {
-      _perguntaSelecionada++;
-    } else {
-      _perguntaSelecionada = 0;
-      }
-    });
-
-
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    final List<Map<String, Object>> perguntas = [
+  final _perguntas = const[
       {
         'texto': 'Qual é a sua cor favorita?',
         'respostas' : ['Preto', 'Azul', 'Cinza' , 'Rosa'],
@@ -51,8 +35,27 @@ class _PerguntaAppState extends State<PerguntaApp> {
         'respostas' : ['Um café com Sêneca', 'O despertar da senhorita Prim', 'Feliz ano velho' , 'Mochileiro das Galáxias'],
       }
     ];
+  
+  void _responder(){
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+      });
+    }
+  }
 
-    List<String> respostas = perguntas[_perguntaSelecionada].cast()['respostas'];
+  bool get temPerguntaSelecionada {
+    return _perguntaSelecionada < _perguntas.length;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    List<String> respostas = temPerguntaSelecionada 
+    ? _perguntas[_perguntaSelecionada].cast()['respostas']
+    : [];
+    
+    
     List<Widget> widgetsResposta = respostas
     .map((t) => Resposta(t, _responder))
     .toList();
@@ -77,13 +80,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
           centerTitle: true,
           
         ),
-        body: Column(
+        body: temPerguntaSelecionada ? Column(
           children: <Widget>[ 
-            Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
+            Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
           
             ...respostas.map((t) => Resposta(t, _responder)).toList(),
         
-        ]),
+        ]) : null,
       )
     );
   }
