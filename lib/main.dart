@@ -53,18 +53,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     List<String> respostas = temPerguntaSelecionada 
     ? _perguntas[_perguntaSelecionada].cast()['respostas']
-    : [];
-    
-    
-    List<Widget> widgetsResposta = respostas
-    .map((t) => Resposta(t, _responder))
-    .toList();
-
-
-    // for (String textoResp in respostas) {
-    //   widgetsResposta.add(Resposta(textoResp, _responder));
-    // }
-           
+    : []; // Quando chega no final do dicionário a tela fica branca porque não tem pergunta
 
     return MaterialApp(
       home: Scaffold(
@@ -84,14 +73,20 @@ class _PerguntaAppState extends State<PerguntaApp> {
           children: <Widget>[ 
             Questao(_perguntas[_perguntaSelecionada]['texto'].toString()),
           
-            ...respostas.map((t) => Resposta(t, _responder)).toList(),
+            ...respostas.map((t) => Resposta(t, _responder)), //.toList(),
         
-        ]) : null,
+        ]) : Center(
+          child: Text("Parabéns, você respondeu todas as perguntas do nosso questionário",
+          style: TextStyle(
+            fontSize: 38,
+            color: const Color(0xFF5454BB),
+          )
+           ),
+        ),
       )
     );
   }
 }
-
 
 class PerguntaApp extends StatefulWidget {
   const PerguntaApp({super.key});
