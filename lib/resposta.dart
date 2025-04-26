@@ -14,8 +14,20 @@ class Resposta extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+        ),
+      
         onPressed: quandoSelecionado,
-        child: Text(texto),
+        child: Text(texto,
+          style: TextStyle(
+            fontSize: 16,
+            fontFamily: 'Sans-serif',
+          ),
+        ),
       ),
     );
   }
