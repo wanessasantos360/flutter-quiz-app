@@ -6,16 +6,16 @@ class Resultado extends StatelessWidget {
   final void Function() quandoReiniciarQuestionario;
 
   String get fraseResultado {
-    if (pontuacao < 20) {
-      return "Você é uma pessoa muito legal!";
-    } else if (pontuacao < 30) {
-      return "Você é uma pessoa incrível!";
-    } else if (pontuacao < 40) {
-      return "Você é uma pessoa maravilhosa!";
-    } else if (pontuacao < 50) {
-      return "Você é uma pessoa fantástica!";
+    if (100 < pontuacao && pontuacao <= 130) {
+      return "Relax total";
+    } else if (130 < pontuacao && pontuacao <= 160) {
+      return "Leve tensão";
+    } else if (160 < pontuacao && pontuacao <= 190) {
+      return "Estresse moderado";
+    } else if (190 < pontuacao && pontuacao <= 200) {
+      return "Alerta máximo";
     } else {
-      return "Você é uma pessoa sensacional!";
+      return "Pontuação fora da faixa esperada";
     }
   }
 
@@ -35,11 +35,9 @@ class Resultado extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: quandoReiniciarQuestionario, 
+          onPressed: quandoReiniciarQuestionario,
           style: ElevatedButton.styleFrom(
             backgroundColor: Color(0xFF5454BB),
             padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 15),
@@ -55,7 +53,6 @@ class Resultado extends StatelessWidget {
               fontFamily: 'Sans-serif',
               color: Colors.white,
             ),
-            
           ),
         ),
       ],
